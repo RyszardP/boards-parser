@@ -43,6 +43,7 @@ public class YandexMarketParser {
          //   System.out.println(div);
             String gameLink = div.select(" a").attr("href");
             System.out.println(gameLink);
+            System.out.println(href + gameLink);
         }
         // Element table = page.getElementById()
         //     System.out.println(tableCont);
