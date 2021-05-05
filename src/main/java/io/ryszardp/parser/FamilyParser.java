@@ -34,8 +34,8 @@ public class FamilyParser {
         throw new Exception("Can't extract age from string");
     }
 
-    private static String getGamersFromString(String stringAge) throws Exception {
-        Matcher matcher = playersPattern.matcher(stringAge);
+    private static String getGamersFromString(String stringQuantity) throws Exception {
+        Matcher matcher = playersPattern.matcher(stringQuantity);
         if (matcher.find()) {
             return matcher.group();
         }

@@ -33,7 +33,7 @@ public class YandexMarketParser {
 
     public static void main(String[] args) throws Exception {
         System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
-        int pageNumbers = 3;
+        int pageNumbers = 5;
         Document page = getPage(MAIN);
         //    System.out.println(page);
         //body > div._111XIPXNiH.main > div:nth-child(4) > div.tamefSzMtq > div:nth-child(4) > div

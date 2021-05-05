@@ -44,7 +44,7 @@ public class EconomicParser extends AbstractParser {
 
     public static void main(String[] args) throws Exception {
         System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
-        int pageNumbers = 3;
+        int pageNumbers = 5;
         FileWriter csvWriter = new FileWriter(filePath + fileName + fileFormat);
 
         csvWriter.append("title");

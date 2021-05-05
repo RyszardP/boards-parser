@@ -28,7 +28,7 @@ public class OzonParser {
         // Document page = Jsoup.parse(new URL(url), 30000);
         // page = Jsoup.connect(url).get();
         //  Document page = Jsoup.connect(url).maxBodySize(Integer.MAX_VALUE).get();
-        //  Thread.sleep(10000);
+          Thread.sleep(3000);
         return doc;
     }
 
