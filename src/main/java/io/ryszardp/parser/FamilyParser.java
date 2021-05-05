@@ -11,11 +11,8 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FamilyParser {
-    private static Document getPage(String url) throws IOException {
-        Document page = Jsoup.parse(new URL(url), 15000);
-        return page;
-    }
+public class FamilyParser extends AbstractParser{
+
 
     private static String fileName = "FamilyGameBoards";
     private static String fileFormat = ".csv";
@@ -44,7 +41,7 @@ public class FamilyParser {
 
     public static void main(String[] args) throws Exception {
         System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
-        int pageNumbers = 3;
+        int pageNumbers = 5;
 
         FileWriter csvWriter = new FileWriter(filePath + fileName + fileFormat);
 

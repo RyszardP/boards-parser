@@ -11,12 +11,8 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PartyGamesParser {
+public class PartyGamesParser extends AbstractParser {
 
-    private static Document getPage(String url) throws IOException {
-        Document page = Jsoup.parse(new URL(url), 15000);
-        return page;
-    }
     private static String fileName = "PartyGameBoards";
     private static String fileFormat = ".csv";
     private static String filePath = "src/main/resources/";
@@ -58,17 +54,12 @@ public class PartyGamesParser {
 
 
         for (int i = 1; i <= pageNumbers; i++) {
-
             Document page = getPage(MAIN + i + "/");
-
             Element tableCont = page.select("#content > div > div.catalog-view-display.catalog-products.spacer.clearfix").first(); // find table
-
             Elements itemCells = tableCont.select("div > div > div.catalog-product-title");
 
             for (Element element : itemCells) {
-
                 String gameLink = element.select(" a").attr("href");
-
 
                 System.out.println(gameLink);
                 Document innerPage = getPage(gameLink);

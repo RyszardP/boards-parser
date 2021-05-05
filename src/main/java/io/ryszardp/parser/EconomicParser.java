@@ -15,10 +15,6 @@ public class EconomicParser extends AbstractParser {
 
     protected final int TIMEOUT_MILLISECONDS = 15000;
 
-    private static Document getPage(String url) throws IOException {
-        Document page = Jsoup.parse(new URL(url), 15000);
-        return page;
-    }
     private static String fileName = "EconomicGameBoards";
     private static String fileFormat = ".csv";
     private static String filePath = "src/main/resources/";
