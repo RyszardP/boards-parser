@@ -12,32 +12,14 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Parser {
 
-    private static Document getPage(String url) throws IOException {
-        Document page = Jsoup.parse(new URL(url), 15000);
-        return page;
-    }
+public class Parser extends AbstractParser {
+
 
     private static Pattern playersPattern = Pattern.compile("(?!\\\\S)Количество игроков (?!\\\\S)[0-9+#-]+");
     private static Pattern agePattern = Pattern.compile("(?!\\\\S)Возраст игроков (?!\\\\S)[0-9+]+");
     private static final String MAIN = "http://www.nastolki.by/2-%D0%B8-%D0%B1%D0%BE%D0%BB%D0%B5%D0%B5-%D0%B8%D0%B3%D1%80%D0%BE%D0%BA%D0%BE%D0%B2-page-";
 
-    private static String getAgeFromString(String stringAge) throws Exception {
-        Matcher matcher = agePattern.matcher(stringAge);
-        if (matcher.find()) {
-            return matcher.group();
-        }
-        throw new Exception("Can't extract age from string");
-    }
-
-    private static String getGamersFromString(String stringAge) throws Exception {
-        Matcher matcher = playersPattern.matcher(stringAge);
-        if (matcher.find()) {
-            return matcher.group();
-        }
-        throw new Exception("Can't extract gamers quantity from string");
-    }
 
     public static void main(String[] args) throws Exception {
         System.setProperty("https.protocols", "TLSv1,TLSv1.1,TLSv1.2");
@@ -66,36 +48,36 @@ public class Parser {
 
             for (Element element : itemCells) {
 
-                    String gameLink = element.select(" a").attr("href");
+                String gameLink = element.select(" a").attr("href");
 
 
-                    System.out.println(gameLink);
-                    Document innerPage = getPage(gameLink);
-                    Element descriptionSection = innerPage.select("#content").first();
+                System.out.println(gameLink);
+                Document innerPage = getPage(gameLink);
+                Element descriptionSection = innerPage.select("#content").first();
 
-                    String gameTitle = descriptionSection.select("div > div.product-page-top > h1").text();
-                    System.out.println(gameTitle);
-                    String gamePrice = descriptionSection.select("#product_price").text();
-                    System.out.println(gamePrice);
+                String gameTitle = descriptionSection.select("div > div.product-page-top > h1").text();
+                System.out.println(gameTitle);
+                String gamePrice = descriptionSection.select("#product_price").text();
+                System.out.println(gamePrice);
 
-                    String gameGeneralInfoTable = descriptionSection.select("div.product-page-blocks.gap-left.gap-right.clearfix > div.product-description.product-page-block > div > table").text();
-                    System.out.println(gameGeneralInfoTable);
-                    String gameAge = getAgeFromString(gameGeneralInfoTable);
-                    String gamersQuantity = getGamersFromString(gameGeneralInfoTable);
+                String gameGeneralInfoTable = descriptionSection.select("div.product-page-blocks.gap-left.gap-right.clearfix > div.product-description.product-page-block > div > table").text();
+                System.out.println(gameGeneralInfoTable);
+                String gameAge = getFromString(gameGeneralInfoTable, agePattern);
+                String gamersQuantity = getFromString(gameGeneralInfoTable, playersPattern);
 
-                    System.out.println(gameAge);
-                    System.out.println(gamersQuantity);
+                System.out.println(gameAge);
+                System.out.println(gamersQuantity);
 
-                    csvWriter.append(gameTitle);
-                    csvWriter.append(",");
-                    csvWriter.append(gamePrice);
-                    csvWriter.append(",");
-                    csvWriter.append(gameAge);
-                    csvWriter.append(",");
-                    csvWriter.append(gamersQuantity);
-                    csvWriter.append(",");
-                    csvWriter.append(gameLink);
-                    csvWriter.append("\n");
+                csvWriter.append(gameTitle);
+                csvWriter.append(",");
+                csvWriter.append(gamePrice);
+                csvWriter.append(",");
+                csvWriter.append(gameAge);
+                csvWriter.append(",");
+                csvWriter.append(gamersQuantity);
+                csvWriter.append(",");
+                csvWriter.append(gameLink);
+                csvWriter.append("\n");
 
             }
         }
